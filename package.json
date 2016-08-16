@@ -4,7 +4,9 @@
   "description": "A simple vanilla JavaScript router with a fallback for older browsers",
   "main": "lib/navigo.js",
   "jsnext:main": "src/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "babel-eslint": "^6.1.2"
+  },
   "author": {
     "name": "Krasimir Tsonev",
     "email": "info@krasimirtsonev.com",
