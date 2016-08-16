@@ -102,20 +102,29 @@ Navigo.prototype = {
     root,
     clean
   },
-  navigate: function (path, absolute) {
+  navigate: function (path, state, absolute) {
     var to;
+
+    state = state || {};
+
+    if (state && typeof state === 'boolean') {
+      absolute = state;
+      state = {};
+    }
 
     path = path || '';
     if (this._ok) {
       to = (!absolute ? this._getRoot() + '/' : '') + clean(path);
       to = to.replace(/([^:])(\/{2,})/g, '$1/');
-      history[this._paused ? 'replaceState' : 'pushState']({}, '', to);
+      this.state = state;
+      history[this._paused ? 'replaceState' : 'pushState'](state, '', to);
       this.resolve();
     } else if (typeof window !== 'undefined') {
       window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
     }
     return this;
   },
+  state: {},
   on: function (...args) {
     if (args.length >= 2) {
       this._add(args[0], args[1]);
